@@ -10,24 +10,20 @@ export async function getStaticPaths() {
   ];
 
   try {
-    if (!supabase) throw new Error('Supabase not initialized');
-    const { data, error } = await supabase
-      .from('blog_posts')
-      .select('slug')
-      .eq('published', true);
-
-    if (!error && data && data.length > 0) {
-      return data.map((post) => ({
-        params: { slug: post.slug }
-      }));
+    if (supabase) {
+      const { data, error } = await supabase
+        .from('blog_posts')
+        .select('slug')
+        .eq('published', true);
+      if (!error && data && data.length > 0) {
+        return data.map((post) => ({ params: { slug: post.slug } }));
+      }
     }
   } catch (e) {
     console.warn('Using fallback slugs for getStaticPaths.');
   }
 
-  return fallbackSlugs.map((post) => ({
-    params: { slug: post.slug }
-  }));
+  return fallbackSlugs.map((post) => ({ params: { slug: post.slug } }));
 }
 
 const { slug } = Astro.params;
@@ -63,60 +59,43 @@ let post = fallbackPostsMap[slug || ''];
 let relatedPosts: any[] = [];
 
 try {
-  if (!supabase) throw new Error('Supabase not initialized');
-  const { data, error } = await supabase
-    .from('blog_posts')
-    .select('*')
-    .eq('slug', slug)
-    .single();
-
-  if (!error && data) {
-    post = data;
-  }
-
   if (supabase) {
+    const { data } = await supabase
+      .from('blog_posts')
+      .select('*')
+      .eq('slug', slug)
+      .single();
+    if (data) post = data;
+
     const { data: relatedData } = await supabase
       .from('blog_posts')
       .select('*')
       .eq('published', true)
       .neq('slug', slug)
       .limit(2);
-    
-    if (relatedData && relatedData.length > 0) {
-      relatedPosts = relatedData;
-    } else {
-      relatedPosts = Object.values(fallbackPostsMap).filter((p: any) => p.slug !== slug).slice(0, 2);
-    }
-  } else {
-    relatedPosts = Object.values(fallbackPostsMap).filter((p: any) => p.slug !== slug).slice(0, 2);
+    if (relatedData) relatedPosts = relatedData;
   }
 } catch (e) {
-  relatedPosts = Object.values(fallbackPostsMap).filter((p: any, key: string) => key !== slug).slice(0, 2);
+  console.warn('Error fetching data, using fallback.', e);
 }
 
-if (!post) {
-  return Astro.redirect('/404');
-}
+if (!post) return Astro.redirect('/404');
+
+// Calculate reading time
+const wordCount = post.content.split(/\s+/).length;
+const readingTime = Math.ceil(wordCount / 200);
 ---
 
-<Layout 
-  title={`${post.title} | مدونة MeDo ERP`} 
-  description={post.excerpt}
->
+<Layout title={`${post.title} | مدونة MeDo ERP`} description={post.excerpt}>
   <article class="py-20 bg-ivory">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <!-- Back button -->
       <div class="mb-8">
         <a href="/blog" class="inline-flex items-center gap-2 text-sm font-heading font-bold text-sap hover:text-sap-hover">
-          <svg class="w-4 h-4 rtl:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-          </svg>
-          <span>العودة إلى المدونة</span>
+          <span>← العودة إلى المدونة</span>
         </a>
       </div>
 
-      <!-- Article Header -->
       <header class="mb-12">
         <div class="flex items-center gap-3 text-xs font-mono-num text-gray-text mb-4">
           <span class="px-3 py-1 rounded-full bg-blue-50 text-sap font-heading font-bold border border-blue-200">
@@ -125,67 +104,45 @@ if (!post) {
           <span>•</span>
           <span>{new Date(post.created_at).toLocaleDateString('ar-YE')}</span>
           <span>•</span>
-          <span>الكاتب: {post.author || 'فريق MeDo ERP'}</span>
+          <span>{readingTime} دقائق قراءة</span>
         </div>
         <h1 class="font-heading font-black text-3xl sm:text-5xl text-navy tracking-tight leading-tight mb-6">
           {post.title}
         </h1>
-        <p class="font-body text-lg text-gray-text leading-relaxed font-medium">
-          {post.excerpt}
-        </p>
       </header>
 
-      <!-- Featured Graphic Banner -->
-      <div class="h-72 sm:h-96 rounded-2xl bg-gradient-to-tr from-navy via-[#112B4F] to-[#1A3860] flex items-center justify-center relative overflow-hidden mb-12 shadow-xl">
-        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:20px_20px]"></div>
-        <svg class="w-28 h-28 text-sky-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <rect x="2" y="3" width="20" height="14" rx="2" stroke-width="2"/>
-          <line x1="8" y1="21" x2="16" y2="21" stroke-width="2"/>
-          <line x1="12" y1="17" x2="12" y2="21" stroke-width="2"/>
-          <path d="M7 8h10M7 12h6" stroke-width="2" stroke-linecap="round"/>
-        </svg>
+      <!-- Toolbar -->
+      <div class="flex flex-wrap gap-4 mb-8 bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+        <button id="btn-copy" class="text-sm font-bold text-navy hover:text-sap">نسخ الرابط</button>
+        <button id="btn-whatsapp" class="text-sm font-bold text-navy hover:text-sap">واتساب</button>
+        <button id="btn-x" class="text-sm font-bold text-navy hover:text-sap">مشاركة X</button>
+        <button id="btn-print" class="text-sm font-bold text-navy hover:text-sap">طباعة</button>
       </div>
 
-      <!-- Article Content (HTML) -->
       <div 
         class="prose prose-lg max-w-none font-body text-navy leading-relaxed space-y-6 bg-white p-8 sm:p-12 rounded-2xl border border-gray-200 shadow-sm mb-16"
         set:html={post.content}
       />
 
-      <!-- Bottom Back Button -->
-      <div class="pt-8 border-t border-gray-200 flex items-center justify-between mb-20">
-        <a href="/blog" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-sap text-white font-heading font-bold hover:bg-sap-hover shadow-sm transition">
-          <svg class="w-4 h-4 rtl:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-          </svg>
-          <span>العودة إلى جميع المقالات</span>
-        </a>
-      </div>
+      <script>
+        const title = document.title;
+        const url = window.location.href;
 
-      <!-- Related Posts Section -->
-      {relatedPosts.length > 0 && (
-        <section class="border-t border-gray-200 pt-16">
-          <h3 class="font-heading font-black text-2xl text-navy mb-8">مقالات ذات صلة</h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {relatedPosts.map((rel: any) => (
-              <a href={`/blog/${rel.slug}`} class="group bg-white p-6 rounded-2xl border border-gray-200 hover:border-sap hover:shadow-lg transition-all flex flex-col justify-between">
-                <div>
-                  <span class="text-xs font-mono-num text-sap font-bold mb-2 block">{rel.category}</span>
-                  <h4 class="font-heading font-bold text-lg text-navy group-hover:text-sap transition-colors mb-2 line-clamp-2">
-                    {rel.title}
-                  </h4>
-                  <p class="font-body text-xs text-gray-text line-clamp-2">{rel.excerpt}</p>
-                </div>
-                <div class="mt-4 flex items-center gap-1 text-xs font-heading font-bold text-sap">
-                  <span>اقرأ المقال</span>
-                  <span>←</span>
-                </div>
-              </a>
-            ))}
-          </div>
-        </section>
-      )}
+        document.getElementById('btn-copy')?.addEventListener('click', () => {
+          navigator.clipboard.writeText(url);
+          alert('تم نسخ الرابط');
+        });
 
+        document.getElementById('btn-whatsapp')?.addEventListener('click', () => {
+          window.open(`https://wa.me/?text=اقرأ هذا المقال: ${title} ${url}`, '_blank');
+        });
+
+        document.getElementById('btn-x')?.addEventListener('click', () => {
+          window.open(`https://twitter.com/intent/tweet?text=${title}&url=${url}`, '_blank');
+        });
+
+        document.getElementById('btn-print')?.addEventListener('click', () => window.print());
+      </script>
     </div>
   </article>
 </Layout>

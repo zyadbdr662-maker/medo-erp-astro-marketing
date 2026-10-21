@@ -3,21 +3,17 @@ import Layout from '../../layouts/Layout.astro';
 import { supabase } from '../../lib/supabase';
 
 let posts = [];
-let error = null;
-
 try {
-  if (!supabase) throw new Error('Supabase not initialized');
-  const { data, error: fetchError } = await supabase
-    .from('blog_posts')
-    .select('*')
-    .eq('published', true)
-    .order('created_at', { ascending: false });
-
-  if (fetchError) throw fetchError;
-  posts = data || [];
+  if (supabase) {
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .select('*')
+      .eq('published', true)
+      .order('created_at', { ascending: false });
+    if (!error) posts = data || [];
+  }
 } catch (e) {
   console.warn('Could not fetch blog posts, using fallback.', e);
-  posts = [];
 }
 
 const fallbackPosts = [
@@ -35,28 +31,56 @@ const displayPosts = posts.length > 0 ? posts : fallbackPosts;
 >
   <section class="py-20 bg-ivory">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h1 class="font-heading font-black text-4xl sm:text-5xl text-navy mb-6">المدونة</h1>
-        <p class="text-gray-text text-lg max-w-2xl mx-auto">أحدث المقالات حول الإدارة المالية، المحاسبة السحابية، وتقنيات ERP في اليمن.</p>
+      <div class="text-center mb-12">
+        <h1 class="font-heading font-black text-4xl sm:text-5xl text-navy mb-6">المدونة والمقالات</h1>
+        <p class="text-gray-text text-lg max-w-2xl mx-auto">اكتشف أسرار المحاسبة والتقنية في السوق اليمني.</p>
+        
+        <!-- Search -->
+        <div class="mt-8 max-w-md mx-auto">
+          <input type="text" id="blog-search" placeholder="ابحث في المقالات..." class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-sap focus:border-sap outline-none" />
+        </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div id="blog-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {displayPosts.map((post) => (
-          <article class="bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-lg transition-all flex flex-col overflow-hidden">
+          <article class="blog-card bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-lg transition-all flex flex-col overflow-hidden" data-title={post.title}>
             <div class="p-8 flex flex-col flex-grow">
               <span class="text-xs font-mono-num text-sap font-bold mb-3 block">{post.category}</span>
-              <h2 class="font-heading font-bold text-xl text-navy mb-4 group-hover:text-sap transition-colors line-clamp-2">
+              <h2 class="font-heading font-bold text-xl text-navy mb-4 line-clamp-2">
                 {post.title}
               </h2>
               <p class="font-body text-sm text-gray-text mb-6 flex-grow line-clamp-3">{post.excerpt}</p>
               <a href={`/blog/${post.slug}`} class="inline-flex items-center gap-2 font-heading font-bold text-sap hover:text-sap-hover text-sm">
-                <span>اقرأ المزيد</span>
-                <span>←</span>
+                <span>اقرأ المقال →</span>
               </a>
             </div>
           </article>
         ))}
       </div>
+      <div id="no-results" class="hidden text-center py-20 text-gray-text">لم يتم العثور على نتائج.</div>
     </div>
   </section>
+
+  <script>
+    const searchInput = document.getElementById('blog-search') as HTMLInputElement;
+    const cards = document.querySelectorAll('.blog-card');
+    const noResults = document.getElementById('no-results');
+
+    searchInput?.addEventListener('input', (e) => {
+      const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+      let hasResults = false;
+
+      cards.forEach((card) => {
+        const title = (card as HTMLElement).dataset.title?.toLowerCase() || '';
+        if (title.includes(searchTerm)) {
+          (card as HTMLElement).style.display = 'flex';
+          hasResults = true;
+        } else {
+          (card as HTMLElement).style.display = 'none';
+        }
+      });
+
+      noResults?.classList.toggle('hidden', hasResults);
+    });
+  </script>
 </Layout>
