@@ -10,6 +10,7 @@ export async function getStaticPaths() {
   ];
 
   try {
+    if (!supabase) throw new Error('Supabase not initialized');
     const { data, error } = await supabase
       .from('blog_posts')
       .select('slug')
@@ -62,6 +63,7 @@ let post = fallbackPostsMap[slug || ''];
 let relatedPosts: any[] = [];
 
 try {
+  if (!supabase) throw new Error('Supabase not initialized');
   const { data, error } = await supabase
     .from('blog_posts')
     .select('*')
@@ -72,15 +74,19 @@ try {
     post = data;
   }
 
-  const { data: relatedData } = await supabase
-    .from('blog_posts')
-    .select('*')
-    .eq('published', true)
-    .neq('slug', slug)
-    .limit(2);
-
-  if (relatedData && relatedData.length > 0) {
-    relatedPosts = relatedData;
+  if (supabase) {
+    const { data: relatedData } = await supabase
+      .from('blog_posts')
+      .select('*')
+      .eq('published', true)
+      .neq('slug', slug)
+      .limit(2);
+    
+    if (relatedData && relatedData.length > 0) {
+      relatedPosts = relatedData;
+    } else {
+      relatedPosts = Object.values(fallbackPostsMap).filter((p: any) => p.slug !== slug).slice(0, 2);
+    }
   } else {
     relatedPosts = Object.values(fallbackPostsMap).filter((p: any) => p.slug !== slug).slice(0, 2);
   }

@@ -6,6 +6,7 @@ let posts = [];
 let error = null;
 
 try {
+  if (!supabase) throw new Error('Supabase not initialized');
   const { data, error: fetchError } = await supabase
     .from('blog_posts')
     .select('*')
