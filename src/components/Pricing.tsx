@@ -130,7 +130,7 @@ export default function Pricing() {
             </div>
 
             <a
-              href="https://wa.me/967773586047?text=أرغب في الاشتراك بباقة Starter"
+              href="https://medo-erp-cloud.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
               style={{ fontFamily: 'Tajawal, sans-serif' }}
@@ -213,7 +213,7 @@ export default function Pricing() {
             </div>
 
             <a
-              href="https://wa.me/967773586047?text=أرغب في تجربة باقة Pro"
+              href="https://medo-erp-cloud.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
               style={{ fontFamily: 'Tajawal, sans-serif' }}
