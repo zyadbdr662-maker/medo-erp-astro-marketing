@@ -1,76 +1,42 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '../layouts/BaseLayout.astro';
 ---
 
-<Layout 
-  title="اتفاقية مستوى الخدمة (SLA) - MeDo ERP" 
-  description="اتفاقية مستوى الخدمة وضمانات وقت التشغيل ودعم العملاء في منصة MeDo ERP."
->
-  <!-- Hero Section -->
-  <section class="bg-gradient-to-b from-dark via-navy-light to-navy text-white py-20 relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-blue-300 text-xs font-heading font-bold mb-6 backdrop-blur-md">
-        <span>اتفاقيات الخدمة</span>
+<Layout title="اتفاقية مستوى الخدمة (SLA)">
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <h1 class="text-4xl font-bold text-navy mb-10">اتفاقية مستوى الخدمة (SLA)</h1>
+      <div class="overflow-x-auto">
+        <table class="w-full text-right border-collapse border border-gray-200">
+          <thead class="bg-navy text-white">
+            <tr>
+              <th class="p-4 border">المعيار</th>
+              <th class="p-4 border">التفاصيل</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-4 border">وقت التشغيل (Uptime)</td>
+              <td class="p-4 border">99.9%</td>
+            </tr>
+            <tr>
+              <td class="p-4 border">وقت الاستجابة للدعم</td>
+              <td class="p-4 border">خلال 4 ساعات (Pro) / خلال ساعة (Enterprise)</td>
+            </tr>
+            <tr>
+              <td class="p-4 border">النسخ الاحتياطي</td>
+              <td class="p-4 border">كل ساعة</td>
+            </tr>
+            <tr>
+              <td class="p-4 border">استعادة البيانات</td>
+              <td class="p-4 border">خلال 24 ساعة</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <h1 class="font-heading font-black text-4xl sm:text-5xl tracking-tight mb-4">
-        اتفاقية مستوى الخدمة (SLA)
-      </h1>
-      <p class="font-body text-base sm:text-lg text-slate-300 max-w-2xl mx-auto font-normal">
-        التزامنا تجاه عملائنا بجودة الخدمة، وقت التشغيل المرتفع، وسرعة الاستجابة للدعم الفني.
-      </p>
-    </div>
-  </section>
-
-  <!-- Table Section -->
-  <section class="py-20 bg-ivory">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="bg-white rounded-3xl border border-gray-200 overflow-hidden shadow-sm mb-12">
-        <div class="p-8 border-b border-gray-200 bg-navy text-white">
-          <h2 class="font-heading font-bold text-2xl">مؤشرات الأداء وضمانات الجودة</h2>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-right font-body">
-            <thead>
-              <tr class="bg-gray-50 border-b border-gray-200 text-navy font-heading font-bold text-sm">
-                <th class="p-6">البند</th>
-                <th class="p-6">مستوى الالتزام</th>
-                <th class="p-6">التفاصيل</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200 text-gray-text text-sm">
-              <tr>
-                <td class="p-6 font-heading font-bold text-navy">وقت التشغيل (Uptime)</td>
-                <td class="p-6 text-sap font-mono-num font-bold text-base">99.9%</td>
-                <td class="p-6">ضمان عمل النظام واستمرار توفر الخدمات السحابية على مدار الساعة طوال أيام السنة.</td>
-              </tr>
-              <tr>
-                <td class="p-6 font-heading font-bold text-navy">استجابة الدعم الفني</td>
-                <td class="p-6 text-sap font-heading font-bold">خلال 4 ساعات (Pro)<br/>خلال ساعة (Enterprise)</td>
-                <td class="p-6">السرعة في تلقي التذاكر وحل المشكلات الفنية أو المحاسبية العاجلة.</td>
-              </tr>
-              <tr>
-                <td class="p-6 font-heading font-bold text-navy">النسخ الاحتياطي</td>
-                <td class="p-6 text-sap font-heading font-bold">كل ساعة</td>
-                <td class="p-6">حفظ نسخة احتياطية مشفرة بالكامل لكل الحركات والبيانات تلقائياً.</td>
-              </tr>
-              <tr>
-                <td class="p-6 font-heading font-bold text-navy">استعادة البيانات</td>
-                <td class="p-6 text-sap font-heading font-bold">خلال 24 ساعة</td>
-                <td class="p-6">القدرة على استعادة النظام أو أي سجلات سابقة في أسرع وقت عند الحاجة.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Compensation Section -->
-      <div class="bg-white p-8 sm:p-12 rounded-3xl border border-gray-200 shadow-sm space-y-4 font-body text-gray-text">
-        <h3 class="font-heading font-bold text-2xl text-navy">سياسة التعويضات</h3>
-        <p class="leading-relaxed text-lg">
-          إذا انخفض وقت التشغيل الشهري عن النسبة المضمنة (99.9%) لأسباب تخص بنيتنا التحتية السحابية، يحق للعميل الحصول على رصيد إضافي مجاني يضاف إلى مدة اشتراكه تقديراً منا لأي إزعاج محتمل.
-        </p>
-      </div>
-
+      
+      <h2 class="text-3xl font-bold text-navy mt-10 mb-4">التعويضات</h2>
+      <p>إذا انخفض وقت التشغيل عن 99.9%، يحق للعميل الحصول على رصيد إضافي.</p>
     </div>
   </section>
 </Layout>

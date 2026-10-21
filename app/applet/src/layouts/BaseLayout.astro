@@ -1,13 +1,14 @@
 ---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../index.css';
+
 interface Props {
   title: string;
   description?: string;
 }
 
 const { title, description = "منظومة MeDo ERP السحابية المتكاملة" } = Astro.props;
-
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 ---
 
 <!doctype html>
@@ -19,12 +20,10 @@ import Footer from '../components/Footer.astro';
     <meta name="description" content={description} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- Design System 2.0: Tajawal (Headings) + IBM Plex Sans Arabic (Body) + Space Grotesk (Numbers) -->
     <link
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&family=Tajawal:wght@700;800;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/src/index.css" />
   </head>
   <body class="bg-ivory text-navy font-body antialiased min-h-screen flex flex-col selection:bg-sap selection:text-white">
     <Header />
@@ -33,7 +32,6 @@ import Footer from '../components/Footer.astro';
     </main>
     <Footer />
 
-    <!-- Scroll Reveal IntersectionObserver Script -->
     <script>
       const observerCallback = (entries, observer) => {
         entries.forEach((entry) => {
