@@ -1,7 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Read environment variables safely for build and runtime
-const supabaseUrl = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.PUBLIC_SUPABASE_URL) || process.env.PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
-const supabaseAnonKey = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.PUBLIC_SUPABASE_ANON_KEY) || process.env.PUBLIC_SUPABASE_ANON_KEY || 'placeholder-key';
+const supabaseUrl = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.PUBLIC_SUPABASE_URL) || process.env.PUBLIC_SUPABASE_URL || '';
+const supabaseAnonKey = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.PUBLIC_SUPABASE_ANON_KEY) || process.env.PUBLIC_SUPABASE_ANON_KEY || '';
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = (supabaseUrl && supabaseAnonKey && !supabaseUrl.includes('placeholder')) ? createClient(supabaseUrl, supabaseAnonKey) : null;
