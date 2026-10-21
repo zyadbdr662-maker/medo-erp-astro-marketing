@@ -1,0 +1,188 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { supabase } from '../../lib/supabase';
+
+export async function getStaticPaths() {
+  const fallbackSlugs = [
+    { slug: 'how-to-choose-accounting-system' },
+    { slug: 'common-accounting-errors-yemen' },
+    { slug: 'cloud-erp-transformation-guide' }
+  ];
+
+  try {
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .select('slug')
+      .eq('published', true);
+
+    if (!error && data && data.length > 0) {
+      return data.map((item) => ({
+        params: { slug: item.slug }
+      }));
+    }
+  } catch (e) {
+    console.warn('Using fallback slugs for getStaticPaths');
+  }
+
+  return fallbackSlugs.map((item) => ({
+    params: { slug: item.slug }
+  }));
+}
+
+const { slug } = Astro.params;
+
+const fallbackPostsMap: Record<string, any> = {
+  'how-to-choose-accounting-system': {
+    slug: 'how-to-choose-accounting-system',
+    title: 'كيف تختار نظام محاسبي مناسب لمحلك التجاري؟',
+    excerpt: 'أهم المعايير لاختيار نقطة بيع ذكية تدعم الباركود السريع وتمنع العجز المالي وتعمل دون توقف عند انقطاع الشبكة.',
+    content: '<p>اختيار النظام المحاسبي المناسب هو القرار الأهم لنجاح أي منشأة تجارية، خصوصاً في الأسواق التي تتطلب خصوصية عالية نظراً لتعدد العملات وتفاوت أسعار الصرف.</p><p>1. <strong>خاصية العمل دون إنترنت (Offline-First):</strong> انقطاعات التيار والشبكة المتكررة تعني أن نظام نقاط البيع يجب أن يعمل بسلاسة ويسجل الفواتير محلياً حتى تعود الشبكة.</p><p>2. <strong>سهولة قراءة الباركود:</strong> سرعة إصدار الفواتير تمنع طوابير الانتظار وتعطي انطباعاً احترافياً.</p>',
+    category: 'أنظمة التجزئة',
+    created_at: '2026-10-18T10:00:00Z',
+    author: 'فريق MeDo ERP'
+  },
+  'common-accounting-errors-yemen': {
+    slug: 'common-accounting-errors-yemen',
+    title: '5 أخطاء محاسبية شائعة في السوق اليمني وكيفية تجنبها',
+    excerpt: 'تجاهل فروق الصرف، تأخير إدخال المشتريات، والجرد اليدوي — أسباب تؤدي لخسائر خفية وكيف يعالجها ERP السحابي آلياً.',
+    content: '<p>يعاني الكثير من التجار من تراجع الأرباح بالرغم من ارتفاع حجم المبيعات اليومي، وغالباً ما يرجع ذلك لعدة أخطاء محاسبية شائعة:</p><ul><li>الخلط بين العملات وعدم احتساب فروق الصرف اليومية بدقة.</li><li>إهمال جرد المستودعات دورياً مما يتيح فرصة لتلف أو ضياع البضائع.</li><li>الاعتماد على الدفاتر الورقية التي تعرقل اتخاذ القرارات السريعة.</li></ul><p>الحل يكمن في التحول إلى منظومة سحابية متكاملة تقوم بالعمليات الحسابية والقيود بشكل آلي بالكامل.</p>',
+    category: 'إدارة مالية',
+    created_at: '2026-10-12T10:00:00Z',
+    author: 'أ. مروان العريقي'
+  },
+  'cloud-erp-transformation-guide': {
+    slug: 'cloud-erp-transformation-guide',
+    title: 'دليل الانتقال بأعمالك إلى السحابة خطوة بخطوة',
+    excerpt: 'لماذا يتخلى كبار التجار عن السيرفرات المحلية المكلفة ويتجهون إلى المنظومات السحابية الآمنة وذات النسخ الاحتياطي التلقائي.',
+    content: '<p>الحوسبة السحابية أحدثت ثورة حقيقية في إدارة الأعمال. لم تعد بحاجة لشراء خوادم باهظة الثمن أو توظيف فريق صيانة محلي:</p><p>1. <strong>الوصول من أي مكان:</strong> يمكنك متابعة مبيعات فروعك في صنعاء عدن لحظياً من هاتفك المحمول.</p><p>2. <strong>الأمان والنسخ الاحتياطي:</strong> بياناتك مشفرة وفق أعلى المعايير المصرفية (AES-256) ويتم أخذ نسخ احتياطية كل ساعة.</p>',
+    category: 'الحوسبة السحابية',
+    created_at: '2026-10-05T10:00:00Z',
+    author: 'فريق MeDo ERP'
+  }
+};
+
+let post = fallbackPostsMap[slug || ''];
+let relatedPosts: any[] = [];
+
+try {
+  const { data, error } = await supabase
+    .from('blog_posts')
+    .select('*')
+    .eq('slug', slug)
+    .single();
+
+  if (!error && data) {
+    post = data;
+  }
+
+  const { data: relatedData } = await supabase
+    .from('blog_posts')
+    .select('*')
+    .eq('published', true)
+    .neq('slug', slug)
+    .limit(2);
+
+  if (relatedData && relatedData.length > 0) {
+    relatedPosts = relatedData;
+  } else {
+    relatedPosts = Object.values(fallbackPostsMap).filter((p: any) => p.slug !== slug).slice(0, 2);
+  }
+} catch (e) {
+  relatedPosts = Object.values(fallbackPostsMap).filter((p: any) => p.slug !== slug).slice(0, 2);
+}
+
+if (!post) {
+  post = fallbackPostsMap['how-to-choose-accounting-system'];
+}
+---
+
+<Layout 
+  title={`${post.title} | مدونة MeDo ERP`} 
+  description={post.excerpt}
+>
+  <article class="py-20 bg-ivory">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Back button -->
+      <div class="mb-8">
+        <a href="/blog" class="inline-flex items-center gap-2 text-sm font-heading font-bold text-sap hover:text-sap-hover">
+          <svg class="w-4 h-4 rtl:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+          <span>العودة إلى المدونة</span>
+        </a>
+      </div>
+
+      <!-- Article Header -->
+      <header class="mb-12">
+        <div class="flex flex-wrap items-center gap-3 text-xs font-mono-num text-gray-text mb-4">
+          <span class="px-3 py-1 rounded-full bg-blue-50 text-sap font-heading font-bold border border-blue-200">
+            {post.category}
+          </span>
+          <span>•</span>
+          <span>{new Date(post.created_at).toLocaleDateString('ar-YE')}</span>
+          <span>•</span>
+          <span>الكاتب: {post.author || 'فريق MeDo ERP'}</span>
+        </div>
+        <h1 class="font-heading font-black text-3xl sm:text-5xl text-navy tracking-tight leading-tight mb-6">
+          {post.title}
+        </h1>
+        <p class="font-body text-lg text-gray-text leading-relaxed font-medium">
+          {post.excerpt}
+        </p>
+      </header>
+
+      <!-- Featured Graphic Banner -->
+      <div class="h-72 sm:h-96 rounded-2xl bg-gradient-to-tr from-navy via-[#112B4F] to-[#1A3860] flex items-center justify-center relative overflow-hidden mb-12 shadow-xl">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:20px_20px]"></div>
+        <svg class="w-28 h-28 text-sky-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <rect x="2" y="3" width="20" height="14" rx="2" stroke-width="2"/>
+          <line x1="8" y1="21" x2="16" y2="21" stroke-width="2"/>
+          <line x1="12" y1="17" x2="12" y2="21" stroke-width="2"/>
+          <path d="M7 8h10M7 12h6" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <!-- Article Content (HTML) -->
+      <div 
+        class="prose prose-lg max-w-none font-body text-navy leading-relaxed space-y-6 bg-white p-8 sm:p-12 rounded-2xl border border-gray-200 shadow-sm mb-16"
+        set:html={post.content}
+      />
+
+      <!-- Bottom Back Button -->
+      <div class="pt-8 border-t border-gray-200 flex items-center justify-between mb-20">
+        <a href="/blog" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-sap text-white font-heading font-bold hover:bg-sap-hover shadow-sm transition">
+          <svg class="w-4 h-4 rtl:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+          <span>العودة إلى جميع المقالات</span>
+        </a>
+      </div>
+
+      <!-- Related Posts Section -->
+      {relatedPosts.length > 0 && (
+        <section class="border-t border-gray-200 pt-16">
+          <h3 class="font-heading font-black text-2xl text-navy mb-8">مقالات ذات صلة</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {relatedPosts.map((rel: any) => (
+              <a href={`/blog/${rel.slug}`} class="group bg-white p-6 rounded-2xl border border-gray-200 hover:border-sap hover:shadow-lg transition-all flex flex-col justify-between">
+                <div>
+                  <span class="text-xs font-mono-num text-sap font-bold mb-2 block">{rel.category}</span>
+                  <h4 class="font-heading font-bold text-lg text-navy group-hover:text-sap transition-colors mb-2 line-clamp-2">
+                    {rel.title}
+                  </h4>
+                  <p class="font-body text-xs text-gray-text line-clamp-2">{rel.excerpt}</p>
+                </div>
+                <div class="mt-4 flex items-center gap-1 text-xs font-heading font-bold text-sap">
+                  <span>اقرأ المقال</span>
+                  <span>←</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+    </div>
+  </article>
+</Layout>
