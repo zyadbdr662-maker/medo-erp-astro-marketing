@@ -1,0 +1,127 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { supabase } from '../../lib/supabase';
+
+// Fallback articles if Supabase is empty or unconfigured
+const fallbackPosts = [
+  {
+    slug: 'how-to-choose-accounting-system',
+    title: 'كيف تختار نظام محاسبي مناسب لمحلك التجاري؟',
+    excerpt: 'أهم المعايير لاختيار نقطة بيع ذكية تدعم الباركود السريع وتمنع العجز المالي وتعمل دون توقف عند انقطاع الشبكة.',
+    category: 'أنظمة التجزئة',
+    created_at: '2026-10-18T10:00:00Z',
+    author: 'فريق MeDo ERP'
+  },
+  {
+    slug: 'common-accounting-errors-yemen',
+    title: '5 أخطاء محاسبية شائعة في السوق اليمني وكيفية تجنبها',
+    excerpt: 'تجاهل فروق الصرف، تأخير إدخال المشتريات، والجرد اليدوي — أسباب تؤدي لخسائر خفية وكيف يعالجها ERP السحابي آلياً.',
+    category: 'إدارة مالية',
+    created_at: '2026-10-12T10:00:00Z',
+    author: 'أ. مروان العريقي'
+  },
+  {
+    slug: 'cloud-erp-transformation-guide',
+    title: 'دليل الانتقال بأعمالك إلى السحابة خطوة بخطوة',
+    excerpt: 'لماذا يتخلى كبار التجار عن السيرفرات المحلية المكلفة ويتجهون إلى المنظومات السحابية الآمنة وذات النسخ الاحتياطي التلقائي.',
+    category: 'الحوسبة السحابية',
+    created_at: '2026-10-05T10:00:00Z',
+    author: 'فريق MeDo ERP'
+  }
+];
+
+let posts = fallbackPosts;
+
+try {
+  const { data, error } = await supabase
+    .from('blog_posts')
+    .select('*')
+    .eq('published', true)
+    .order('created_at', { ascending: false });
+
+  if (!error && data && data.length > 0) {
+    posts = data;
+  }
+} catch (e) {
+  console.warn('Using fallback blog posts due to Supabase fetch error.');
+}
+---
+
+<Layout 
+  title="المدونة - مقالات وأخبار MeDo ERP" 
+  description="تصفح أحدث المقالات والدراسات حول المحاسبة السحابية، أتمتة الفواتير، ونظم تخطيط الموارد."
+>
+  <div class="bg-gradient-to-b from-dark via-navy-light to-navy text-white py-20 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10 pointer-events-none">
+      <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="blog-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#FFFFFF" stroke-width="0.8" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#blog-grid)" />
+      </svg>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-blue-300 text-xs font-heading font-bold mb-6 backdrop-blur-md">
+        <span>مدونة MeDo ERP</span>
+      </div>
+      <h1 class="font-heading font-black text-4xl sm:text-6xl tracking-tight mb-4">
+        أحدث المقالات والرؤى المحاسبية
+      </h1>
+      <p class="font-body text-base sm:text-xl text-slate-300 max-w-2xl mx-auto font-normal">
+        دليلك الشامل لتعزيز كفاءة شركتك، إدارة المخازن، والتعامل مع فروق العملات في السوق اليمني.
+      </p>
+    </div>
+  </div>
+
+  <section class="py-20 bg-ivory">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {posts.map((post) => (
+          <article class="bg-white rounded-2xl border border-gray-200 overflow-hidden hover:border-sap hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div class="h-48 bg-gradient-to-tr from-navy to-[#1A3860] p-6 flex items-center justify-center relative overflow-hidden">
+                <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                <svg class="w-16 h-16 text-sky-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <rect x="2" y="3" width="20" height="14" rx="2" stroke-width="2"/>
+                  <line x1="8" y1="21" x2="16" y2="21" stroke-width="2"/>
+                  <line x1="12" y1="17" x2="12" y2="21" stroke-width="2"/>
+                  <path d="M7 8h10M7 12h6" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+
+              <div class="p-6">
+                <div class="flex items-center justify-between text-xs font-mono-num text-gray-text mb-3">
+                  <span class="px-2.5 py-1 rounded-full bg-blue-50 text-sap font-heading font-bold border border-blue-200">
+                    {post.category}
+                  </span>
+                  <span>{new Date(post.created_at).toLocaleDateString('ar-YE')}</span>
+                </div>
+                <h3 class="font-heading font-bold text-xl text-navy mb-3 line-clamp-2 hover:text-sap transition-colors">
+                  {post.title}
+                </h3>
+                <p class="font-body text-sm text-gray-text leading-relaxed line-clamp-3">
+                  {post.excerpt}
+                </p>
+              </div>
+            </div>
+
+            <div class="px-6 pb-6 pt-2">
+              <a 
+                href={`/blog/${post.slug}`} 
+                class="inline-flex items-center gap-1.5 text-sm font-heading font-bold text-sap hover:text-sap-hover"
+              >
+                <span>اقرأ المزيد</span>
+                <svg class="w-4 h-4 rtl:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
