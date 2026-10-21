@@ -1,0 +1,6 @@
+{
+  "name": "MeDo ERP SaaS",
+  "description": "منظومة MeDo ERP السحابية المتكاملة للشركات والمؤسسات",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

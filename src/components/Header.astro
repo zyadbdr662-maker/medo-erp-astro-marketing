@@ -1,0 +1,38 @@
+---
+---
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      <a href="/" class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-lg bg-sap-blue flex items-center justify-center text-white font-bold text-xl">M</div>
+        <div>
+          <span class="text-2xl font-bold text-sap-dark">MeDo <span class="text-sap-blue text-xs px-2 py-0.5 rounded bg-blue-50 border border-blue-200">ERP SaaS</span></span>
+          <p class="text-xs text-sap-muted">سحابي بمعايير SAP</p>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="#solutions" class="text-sap-text hover:text-sap-blue font-medium text-sm">الحلول</a>
+        <a href="#pricing" class="text-sap-text hover:text-sap-blue font-medium text-sm">الأسعار</a>
+        <a href="#testimonials" class="text-sap-text hover:text-sap-blue font-medium text-sm">العملاء</a>
+        <a href="#faq" class="text-sap-text hover:text-sap-blue font-medium text-sm">الأسئلة</a>
+      </nav>
+      <a href="#pricing" class="hidden md:flex px-5 py-2.5 rounded-lg bg-sap-blue text-white font-semibold text-sm hover:bg-sap-blue-hover">ابدأ الآن</a>
+      <button id="mobile-menu-btn" class="md:hidden p-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg></button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-200 px-4 py-4 space-y-3">
+    <a href="#solutions" class="block px-3 py-2 rounded-lg hover:bg-sap-gray">الحلول</a>
+    <a href="#pricing" class="block px-3 py-2 rounded-lg hover:bg-sap-gray">الأسعار</a>
+    <a href="#testimonials" class="block px-3 py-2 rounded-lg hover:bg-sap-gray">العملاء</a>
+    <a href="#faq" class="block px-3 py-2 rounded-lg hover:bg-sap-gray">الأسئلة</a>
+    <a href="#pricing" class="block text-center px-5 py-3 rounded-lg bg-sap-blue text-white font-semibold">ابدأ الآن</a>
+  </div>
+</header>
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  if (btn && menu) {
+    btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.add('hidden')));
+  }
+</script>
