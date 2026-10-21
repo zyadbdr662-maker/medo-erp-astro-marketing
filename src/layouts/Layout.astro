@@ -1,5 +1,8 @@
 ---
-interface Props { title: string; description?: string; }
+interface Props {
+  title: string;
+  description?: string;
+}
 const { title, description = "منظومة MeDo ERP السحابية المتكاملة" } = Astro.props;
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -14,11 +17,51 @@ import '../index.css';
     <meta name="description" content={description} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Design System 2.0: Tajawal (Headings) + IBM Plex Sans Arabic (Body) + Space Grotesk (Numbers) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&family=Tajawal:wght@700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style is:global>
+      /* Smooth Intersection Observer Transitions */
+      .reveal-on-scroll {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: opacity, transform;
+      }
+      .reveal-on-scroll.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
   </head>
-  <body class="bg-sap-gray text-sap-text font-arabic antialiased min-h-screen flex flex-col">
+  <body class="bg-ivory text-navy font-body antialiased min-h-screen flex flex-col selection:bg-sap selection:text-white">
     <Header />
-    <main class="flex-grow"><slot /></main>
+    <main class="flex-grow">
+      <slot />
+    </main>
     <Footer />
+
+    <!-- Scroll Reveal IntersectionObserver Script -->
+    <script>
+      const observerCallback: IntersectionObserverCallback = (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      };
+
+      const observer = new IntersectionObserver(observerCallback, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -40px 0px',
+      });
+
+      document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
+        observer.observe(el);
+      });
+    </script>
   </body>
 </html>

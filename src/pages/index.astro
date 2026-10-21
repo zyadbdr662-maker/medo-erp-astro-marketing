@@ -3,42 +3,42 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import TrustBar from '../components/TrustBar.astro';
 import Solutions from '../components/Solutions.astro';
-import WhyMeDo from '../components/WhyMeDo.astro';
 import Stats from '../components/Stats.astro';
 import Pricing from '../components/Pricing.tsx';
 import Testimonials from '../components/Testimonials.astro';
+import BlogSection from '../components/BlogSection.astro';
 import FAQ from '../components/FAQ.astro';
 import FinalCTA from '../components/FinalCTA.astro';
 ---
 
 <Layout 
-  title="MeDo ERP SaaS | منظومة تخطيط الموارد السحابية المتكاملة بمعايير SAP" 
+  title="MeDo ERP SaaS | منظومة تخطيط الموارد السحابية المتكاملة بمعايير SAP و Linear" 
   description="منظومة MeDo ERP السحابية المتكاملة للشركات والمؤسسات — فواتير ذكية، نقاط بيع سحابية، إدارة المخزون والمستودعات، والمحاسبة المالية الدقيقة."
 >
-  <!-- 2. Hero Section -->
+  <!-- 1. Hero Section -->
   <Hero />
 
-  <!-- 3. Trust Bar -->
+  <!-- 2. Trust Bar -->
   <TrustBar />
 
-  <!-- 4. Solutions Grid -->
+  <!-- 3. Solutions Grid -->
   <Solutions />
 
-  <!-- 5. Why MeDo Infographic -->
-  <WhyMeDo />
-
-  <!-- 6. Statistics Section -->
+  <!-- 4. Statistics Section -->
   <Stats />
 
-  <!-- 7. Pricing Section -->
+  <!-- 5. Pricing Section (React Island) -->
   <Pricing client:load />
 
-  <!-- 8. Testimonials -->
+  <!-- 6. Testimonials -->
   <Testimonials />
 
-  <!-- 9. FAQ Section -->
+  <!-- 7. Blog & Resources Section (New) -->
+  <BlogSection />
+
+  <!-- 8. FAQ Section -->
   <FAQ />
 
-  <!-- 10. Final CTA -->
+  <!-- 9. Final CTA -->
   <FinalCTA />
 </Layout>
