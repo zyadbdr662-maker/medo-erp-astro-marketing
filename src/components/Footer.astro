@@ -1,9 +1,23 @@
 ---
+import { supabase } from '../lib/supabase';
 const currentYear = new Date().getFullYear();
 ---
 <footer id="contact" class="bg-dark text-slate-300 pt-20 pb-12 border-t border-white/10 font-body">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
+    <!-- Newsletter Section -->
+    <div class="bg-gradient-to-r from-blue-900/40 to-slate-900/40 border border-white/10 rounded-2xl p-8 mb-16 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex-1">
+        <h3 class="text-xl font-heading font-bold text-white mb-2">اشترك في نشرتنا البريدية</h3>
+        <p class="text-sm text-slate-400">احصل على آخر تحديثات MeDo ERP والمقالات التقنية مباشرة إلى بريدك.</p>
+      </div>
+      <form id="newsletter-form" class="w-full md:w-auto flex flex-col sm:flex-row gap-3">
+        <input type="email" id="newsletter-email" required placeholder="بريدك الإلكتروني" class="px-4 py-2.5 rounded-lg bg-slate-950 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-cta w-full md:w-64" />
+        <button type="submit" class="px-6 py-2.5 rounded-lg bg-cta text-white font-bold hover:bg-blue-600 transition">اشتراك</button>
+      </form>
+    </div>
+    <div id="newsletter-message" class="text-center text-sm font-semibold mb-8"></div>
+
     <!-- 6 Columns Main Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10 mb-16">
       
@@ -151,3 +165,35 @@ const currentYear = new Date().getFullYear();
 
   </div>
 </footer>
+
+<script>
+  import { supabase } from '../lib/supabase';
+  
+  const form = document.querySelector('#newsletter-form') as HTMLFormElement;
+  const emailInput = document.querySelector('#newsletter-email') as HTMLInputElement;
+  const messageEl = document.querySelector('#newsletter-message') as HTMLElement;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!supabase) {
+      messageEl.textContent = 'نظام التسجيل غير مهيأ حالياً.';
+      messageEl.classList.add('text-red-400');
+      return;
+    }
+    messageEl.textContent = 'جاري الاشتراك...';
+    messageEl.classList.remove('text-red-400', 'text-green-400');
+    
+    const { error } = await supabase
+      .from('newsletter_subscribers')
+      .insert([{ email: emailInput.value, created_at: new Date() }]);
+      
+    if (error) {
+      messageEl.textContent = 'حدث خطأ. يرجى المحاولة لاحقاً.';
+      messageEl.classList.add('text-red-400');
+    } else {
+      messageEl.textContent = 'تم الاشتراك بنجاح!';
+      messageEl.classList.add('text-green-400');
+      form.reset();
+    }
+  });
+</script>
