@@ -1,38 +1,268 @@
 ---
 ---
-<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-20">
-      <a href="/" class="flex items-center gap-3">
-        <div class="w-11 h-11 rounded-lg bg-sap-blue flex items-center justify-center text-white font-bold text-xl">M</div>
-        <div>
-          <span class="text-2xl font-bold text-sap-dark">MeDo <span class="text-sap-blue text-xs px-2 py-0.5 rounded bg-blue-50 border border-blue-200">ERP SaaS</span></span>
-          <p class="text-xs text-sap-muted">سحابي بمعايير SAP</p>
-        </div>
+<!-- Top Bar (SAP Enterprise Style) -->
+<div class="bg-sap-dark text-gray-300 text-xs border-b border-gray-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
+    <div class="flex items-center gap-6">
+      <span class="flex items-center gap-1.5 text-gray-300">
+        <svg class="w-3.5 h-3.5 text-sap-gold" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/>
+        </svg>
+        <span>هاتف المبيعات المباشر:</span>
+        <a href="tel:+967773586047" dir="ltr" class="font-semibold text-white hover:text-blue-300 transition">+967 773 586 047</a>
+      </span>
+      <span class="hidden sm:inline-block text-gray-500">|</span>
+      <span class="hidden sm:flex items-center gap-1.5 text-gray-400">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span>السحابة تعمل بكفاءة 100%</span>
+      </span>
+    </div>
+
+    <div class="flex items-center gap-5">
+      <div class="flex items-center gap-1 cursor-pointer hover:text-white transition">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>اليمن (العربية)</span>
+      </div>
+      <span class="text-gray-600">|</span>
+      <a href="#contact" class="hover:text-white transition">تواصل معنا</a>
+      <span class="text-gray-600">|</span>
+      <a href="#pricing" class="flex items-center gap-1.5 text-white font-medium hover:text-blue-300 transition">
+        <svg class="w-3.5 h-3.5 text-sap-blue" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+        </svg>
+        <span>تسجيل الدخول</span>
       </a>
-      <nav class="hidden md:flex items-center gap-8">
-        <a href="#solutions" class="text-sap-text hover:text-sap-blue font-medium text-sm">الحلول</a>
-        <a href="#pricing" class="text-sap-text hover:text-sap-blue font-medium text-sm">الأسعار</a>
-        <a href="#testimonials" class="text-sap-text hover:text-sap-blue font-medium text-sm">العملاء</a>
-        <a href="#faq" class="text-sap-text hover:text-sap-blue font-medium text-sm">الأسئلة</a>
-      </nav>
-      <a href="#pricing" class="hidden md:flex px-5 py-2.5 rounded-lg bg-sap-blue text-white font-semibold text-sm hover:bg-sap-blue-hover">ابدأ الآن</a>
-      <button id="mobile-menu-btn" class="md:hidden p-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg></button>
     </div>
   </div>
-  <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-200 px-4 py-4 space-y-3">
-    <a href="#solutions" class="block px-3 py-2 rounded-lg hover:bg-sap-gray">الحلول</a>
-    <a href="#pricing" class="block px-3 py-2 rounded-lg hover:bg-sap-gray">الأسعار</a>
-    <a href="#testimonials" class="block px-3 py-2 rounded-lg hover:bg-sap-gray">العملاء</a>
-    <a href="#faq" class="block px-3 py-2 rounded-lg hover:bg-sap-gray">الأسئلة</a>
-    <a href="#pricing" class="block text-center px-5 py-3 rounded-lg bg-sap-blue text-white font-semibold">ابدأ الآن</a>
+</div>
+
+<!-- Main Navigation (White SAP Brand Bar) -->
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-sap-border shadow-xs">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      
+      <!-- Brand Logo -->
+      <a href="/" class="flex items-center gap-3.5 group">
+        <div class="w-11 h-11 rounded-lg bg-sap-blue flex items-center justify-center text-white font-black text-2xl shadow-sm group-hover:bg-sap-blue-hover transition">
+          M
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-2xl font-black text-sap-dark tracking-tight">MeDo</span>
+            <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-blue-50 text-sap-blue border border-blue-200">ERP SaaS</span>
+          </div>
+          <p class="text-[11px] font-medium text-sap-muted">سحابي بمعايير SAP العالمية</p>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation with Mega Menu -->
+      <nav class="hidden lg:flex items-center gap-1 xl:gap-2">
+        
+        <!-- Products Mega Menu Trigger -->
+        <div class="relative group">
+          <button class="flex items-center gap-1.5 px-3 py-2 text-sm font-semibold text-sap-text hover:text-sap-blue transition rounded-lg group-hover:bg-sap-gray">
+            <span>المنتجات</span>
+            <svg class="w-4 h-4 text-gray-400 group-hover:text-sap-blue group-hover:rotate-180 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          
+          <!-- Mega Menu Dropdown -->
+          <div class="absolute right-0 top-full pt-2 w-[540px] opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50">
+            <div class="bg-white rounded-lg shadow-xl border border-sap-border p-6 grid grid-cols-2 gap-4">
+              <div class="col-span-2 pb-2 border-b border-gray-100 flex items-center justify-between">
+                <span class="text-xs font-bold text-sap-muted uppercase tracking-wider">موديولات MeDo ERP السحابية</span>
+                <span class="text-xs text-sap-blue font-semibold">نظام متكامل 100%</span>
+              </div>
+              <a href="#solutions" class="p-3 rounded-lg hover:bg-sap-gray transition flex items-start gap-3">
+                <div class="w-9 h-9 rounded bg-blue-50 text-sap-blue flex items-center justify-center shrink-0 mt-0.5">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"/></svg>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-sap-text">الفوترة والامتثال</h4>
+                  <p class="text-xs text-sap-muted mt-0.5">فواتير إلكترونية فورية بالباركود والدفع الآجل.</p>
+                </div>
+              </a>
+              <a href="#solutions" class="p-3 rounded-lg hover:bg-sap-gray transition flex items-start gap-3">
+                <div class="w-9 h-9 rounded bg-blue-50 text-sap-blue flex items-center justify-center shrink-0 mt-0.5">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-sap-text">إدارة المخزون</h4>
+                  <p class="text-xs text-sap-muted mt-0.5">تتبع ذكي للمستودعات وتواريخ الصلاحية والجرد.</p>
+                </div>
+              </a>
+              <a href="#solutions" class="p-3 rounded-lg hover:bg-sap-gray transition flex items-start gap-3">
+                <div class="w-9 h-9 rounded bg-blue-50 text-sap-blue flex items-center justify-center shrink-0 mt-0.5">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-sap-text">نقاط البيع (POS)</h4>
+                  <p class="text-xs text-sap-muted mt-0.5">كاشير سريع يعمل أوفلاين مع مزامنة لحظية.</p>
+                </div>
+              </a>
+              <a href="#solutions" class="p-3 rounded-lg hover:bg-sap-gray transition flex items-start gap-3">
+                <div class="w-9 h-9 rounded bg-blue-50 text-sap-blue flex items-center justify-center shrink-0 mt-0.5">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-sap-text">التقارير والمحاسبة</h4>
+                  <p class="text-xs text-sap-muted mt-0.5">ميزان المراجعة، الأرباح والخسائر، وشجرة الحسابات.</p>
+                </div>
+              </a>
+              <a href="#solutions" class="p-3 rounded-lg hover:bg-sap-gray transition flex items-start gap-3 col-span-2 bg-blue-50/50 border border-blue-100">
+                <div class="w-9 h-9 rounded bg-sap-blue text-white flex items-center justify-center shrink-0 mt-0.5">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-sap-text">الموارد البشرية والرواتب (HR)</h4>
+                  <p class="text-xs text-sap-muted mt-0.5">مسير الرواتب، الإجازات، السلف، والحضور والانصراف بدقة كاملة.</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Solutions Mega Menu Trigger -->
+        <div class="relative group">
+          <button class="flex items-center gap-1.5 px-3 py-2 text-sm font-semibold text-sap-text hover:text-sap-blue transition rounded-lg group-hover:bg-sap-gray">
+            <span>الحلول</span>
+            <svg class="w-4 h-4 text-gray-400 group-hover:text-sap-blue group-hover:rotate-180 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          
+          <div class="absolute right-0 top-full pt-2 w-[460px] opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50">
+            <div class="bg-white rounded-lg shadow-xl border border-sap-border p-5 grid grid-cols-2 gap-3">
+              <div class="col-span-2 pb-2 border-b border-gray-100">
+                <span class="text-xs font-bold text-sap-muted uppercase tracking-wider">حلول مخصصة للأنشطة والقطاعات</span>
+              </div>
+              <a href="#solutions" class="p-3 rounded-lg hover:bg-sap-gray transition">
+                <h4 class="text-sm font-bold text-sap-text flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-sap-blue"></span>
+                  البقالات والتجزئة
+                </h4>
+                <p class="text-xs text-sap-muted mt-1">سرعة البيع، جرد فوري، وقراءة الباركود المتعدد.</p>
+              </a>
+              <a href="#solutions" class="p-3 rounded-lg hover:bg-sap-gray transition">
+                <h4 class="text-sm font-bold text-sap-text flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+                  الصيدليات والمراكز
+                </h4>
+                <p class="text-xs text-sap-muted mt-1">تتبع تواريخ الانتهاء، بدائل الأدوية، والجرعات.</p>
+              </a>
+              <a href="#solutions" class="p-3 rounded-lg hover:bg-sap-gray transition">
+                <h4 class="text-sm font-bold text-sap-text flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-amber-600"></span>
+                  الشركات والمجموعات
+                </h4>
+                <p class="text-xs text-sap-muted mt-1">ربط الفروع، توحيد القوائم المالية، وفروق العملة.</p>
+              </a>
+              <a href="#solutions" class="p-3 rounded-lg hover:bg-sap-gray transition">
+                <h4 class="text-sm font-bold text-sap-text flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-purple-600"></span>
+                  المطاعم والكافيهات
+                </h4>
+                <p class="text-xs text-sap-muted mt-1">طاولات، مطبخ، دليفري، وتكاليف تصنيع الوجبات.</p>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <a href="#pricing" class="px-3 py-2 text-sm font-semibold text-sap-text hover:text-sap-blue transition rounded-lg hover:bg-sap-gray">الأسعار</a>
+        <a href="#testimonials" class="px-3 py-2 text-sm font-semibold text-sap-text hover:text-sap-blue transition rounded-lg hover:bg-sap-gray">العملاء</a>
+        <a href="#why-medo" class="px-3 py-2 text-sm font-semibold text-sap-text hover:text-sap-blue transition rounded-lg hover:bg-sap-gray">لماذا MeDo</a>
+        <a href="#faq" class="px-3 py-2 text-sm font-semibold text-sap-text hover:text-sap-blue transition rounded-lg hover:bg-sap-gray">الأسئلة</a>
+      </nav>
+
+      <!-- Action Area: Search & CTA -->
+      <div class="flex items-center gap-3">
+        <!-- Search Trigger Button -->
+        <button id="search-toggle-btn" aria-label="البحث" class="p-2.5 rounded-lg text-sap-text hover:text-sap-blue hover:bg-sap-gray transition">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </button>
+
+        <!-- CTA Button -->
+        <a href="#pricing" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-sap-blue text-white font-bold text-sm hover:bg-sap-blue-hover shadow-sm transition">
+          ابدأ الآن
+        </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobile-menu-btn" aria-label="القائمة" class="lg:hidden p-2 rounded-lg text-sap-text hover:bg-sap-gray transition">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search Modal / Bar -->
+  <div id="search-bar" class="hidden border-t border-sap-border bg-sap-gray py-3 px-4">
+    <div class="max-w-3xl mx-auto flex items-center gap-3">
+      <svg class="w-5 h-5 text-sap-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+      <input type="text" placeholder="ابحث في حلول وموديولات MeDo ERP (مثال: نقاط البيع، الفواتير، التقارير)..." class="w-full bg-white border border-gray-300 rounded-lg px-4 py-2 text-sm text-sap-text focus:outline-hidden focus:border-sap-blue" />
+      <button id="search-close-btn" class="text-xs text-sap-muted hover:text-sap-text font-semibold px-2 py-1">إغلاق</button>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer Menu -->
+  <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-sap-border px-4 py-6 space-y-4 shadow-lg max-h-[80vh] overflow-y-auto">
+    <div class="space-y-1">
+      <p class="px-3 text-xs font-bold text-sap-muted uppercase tracking-wider">المنتجات والحلول</p>
+      <a href="#solutions" class="block px-3 py-2.5 rounded-lg text-sap-text font-medium hover:bg-sap-gray">الفوترة والامتثال الضريبي</a>
+      <a href="#solutions" class="block px-3 py-2.5 rounded-lg text-sap-text font-medium hover:bg-sap-gray">إدارة المخزون والمستودعات</a>
+      <a href="#solutions" class="block px-3 py-2.5 rounded-lg text-sap-text font-medium hover:bg-sap-gray">نقاط البيع السحابية (POS)</a>
+      <a href="#solutions" class="block px-3 py-2.5 rounded-lg text-sap-text font-medium hover:bg-sap-gray">التقارير والمحاسبة العامة</a>
+      <a href="#solutions" class="block px-3 py-2.5 rounded-lg text-sap-text font-medium hover:bg-sap-gray">الموارد البشرية والرواتب</a>
+    </div>
+
+    <div class="border-t border-gray-100 pt-3 space-y-1">
+      <p class="px-3 text-xs font-bold text-sap-muted uppercase tracking-wider">روابط سريعة</p>
+      <a href="#pricing" class="block px-3 py-2.5 rounded-lg text-sap-text font-medium hover:bg-sap-gray">الأسعار والخطط</a>
+      <a href="#why-medo" class="block px-3 py-2.5 rounded-lg text-sap-text font-medium hover:bg-sap-gray">لماذا MeDo ERP</a>
+      <a href="#testimonials" class="block px-3 py-2.5 rounded-lg text-sap-text font-medium hover:bg-sap-gray">قصص نجاح العملاء</a>
+      <a href="#faq" class="block px-3 py-2.5 rounded-lg text-sap-text font-medium hover:bg-sap-gray">الأسئلة الشائعة</a>
+      <a href="#contact" class="block px-3 py-2.5 rounded-lg text-sap-text font-medium hover:bg-sap-gray">تواصل معنا</a>
+    </div>
+
+    <div class="pt-4 border-t border-gray-100">
+      <a href="#pricing" class="w-full flex items-center justify-center py-3 rounded-lg bg-sap-blue text-white font-bold text-sm shadow-md">
+        ابدأ الآن مجاناً
+      </a>
+    </div>
   </div>
 </header>
+
 <script>
-  const btn = document.getElementById('mobile-menu-btn');
-  const menu = document.getElementById('mobile-menu');
-  if (btn && menu) {
-    btn.addEventListener('click', () => menu.classList.toggle('hidden'));
-    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.add('hidden')));
+  // Mobile Menu Toggle
+  const mobileBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  if (mobileBtn && mobileMenu) {
+    mobileBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
+  }
+
+  // Search Bar Toggle
+  const searchToggleBtn = document.getElementById('search-toggle-btn');
+  const searchCloseBtn = document.getElementById('search-close-btn');
+  const searchBar = document.getElementById('search-bar');
+  if (searchToggleBtn && searchBar && searchCloseBtn) {
+    searchToggleBtn.addEventListener('click', () => {
+      searchBar.classList.toggle('hidden');
+    });
+    searchCloseBtn.addEventListener('click', () => {
+      searchBar.classList.add('hidden');
+    });
   }
 </script>

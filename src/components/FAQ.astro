@@ -1,35 +1,103 @@
 ---
 ---
-<section id="faq" class="py-20 bg-white border-y border-gray-200">
-  <div class="max-w-4xl mx-auto px-4">
-    <div class="text-center mb-14">
-      <h2 class="text-3xl md:text-4xl font-extrabold text-sap-dark">الأسئلة الشائعة</h2>
+<section id="faq" class="py-24 bg-white border-t border-sap-border relative">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Section Header -->
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-sap-blue text-xs font-bold mb-4 border border-blue-200">
+        <span>إجابات واضحة</span>
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-black text-sap-dark tracking-tight mb-4">
+        الأسئلة الشائعة حول المنظومة
+      </h2>
+      <p class="text-base text-sap-muted">
+        كل ما تحتاج معرفته حول تشغيل، أمان، وطرق دفع منظومة MeDo ERP السحابية.
+      </p>
     </div>
+
+    <!-- Accordion List -->
     <div class="space-y-4">
-      <details class="group bg-sap-gray p-5 rounded-lg border border-gray-200">
-        <summary class="flex justify-between cursor-pointer font-bold text-sap-text list-none">هل يدعم النظام تعدد العملات؟<span class="text-sap-blue text-xl group-open:rotate-45 transition">+</span></summary>
-        <p class="mt-3 text-sap-muted text-sm">نعم، يدعم الريال القديم والجديد والدولار والريال السعودي مع فروق الصرف.</p>
+      
+      <!-- FAQ 1 -->
+      <details class="group bg-sap-gray p-6 rounded-lg border border-sap-border transition-all duration-200 hover:border-sap-blue" open>
+        <summary class="flex items-center justify-between cursor-pointer font-bold text-sap-dark text-base sm:text-lg list-none select-none">
+          <span>هل يدعم النظام تعدد العملات وفروق أسعار الصرف في اليمن؟</span>
+          <span class="w-8 h-8 rounded-full bg-white text-sap-blue flex items-center justify-center font-bold text-lg group-open:rotate-45 transition-transform shrink-0 border border-sap-border">
+            +
+          </span>
+        </summary>
+        <p class="mt-4 text-sap-muted text-sm sm:text-base leading-relaxed pt-3 border-t border-gray-200">
+          نعم وبشكل متقدم جداً؛ يدعم MeDo ERP إدارة حساباتك بالريال اليمني القديم (صنعاء)، الريال الجديد (عدن)، الدولار الأمريكي، والريال السعودي. ويقوم النظام آلياً باحتساب فروق الصرف وتوجيهها إلى حساب الأرباح والخسائر الناتجة عن تذبذب العملة تلقائياً.
+        </p>
       </details>
-      <details class="group bg-sap-gray p-5 rounded-lg border border-gray-200">
-        <summary class="flex justify-between cursor-pointer font-bold text-sap-text list-none">ماذا يحدث عند انقطاع الإنترنت؟<span class="text-sap-blue text-xl group-open:rotate-45 transition">+</span></summary>
-        <p class="mt-3 text-sap-muted text-sm">يدعم MeDo ERP العمل دون اتصال (Offline-First POS).</p>
+
+      <!-- FAQ 2 -->
+      <details class="group bg-sap-gray p-6 rounded-lg border border-sap-border transition-all duration-200 hover:border-sap-blue">
+        <summary class="flex items-center justify-between cursor-pointer font-bold text-sap-dark text-base sm:text-lg list-none select-none">
+          <span>ماذا يحدث لنقاط البيع والفواتير عند انقطاع خدمة الإنترنت؟</span>
+          <span class="w-8 h-8 rounded-full bg-white text-sap-blue flex items-center justify-center font-bold text-lg group-open:rotate-45 transition-transform shrink-0 border border-sap-border">
+            +
+          </span>
+        </summary>
+        <p class="mt-4 text-sap-muted text-sm sm:text-base leading-relaxed pt-3 border-t border-gray-200">
+          تم تزويد موديول نقاط البيع (POS) بتقنية Offline-First، مما يتيح للكاشير مواصلة إصدار الفواتير وطباعتها وتخزينها محلياً دون أي انقطاع. وفور عودة الإنترنت يقوم النظام بمزامنة كافة الحركات تلقائياً مع السحابة المركزية في ثوانٍ معدودة.
+        </p>
       </details>
-      <details class="group bg-sap-gray p-5 rounded-lg border border-gray-200">
-        <summary class="flex justify-between cursor-pointer font-bold text-sap-text list-none">كيف يتم تأمين البيانات؟<span class="text-sap-blue text-xl group-open:rotate-45 transition">+</span></summary>
-        <p class="mt-3 text-sap-muted text-sm">تشفير AES-256 ونسخ احتياطي كل ساعة على خوادم موزعة.</p>
+
+      <!-- FAQ 3 -->
+      <details class="group bg-sap-gray p-6 rounded-lg border border-sap-border transition-all duration-200 hover:border-sap-blue">
+        <summary class="flex items-center justify-between cursor-pointer font-bold text-sap-dark text-base sm:text-lg list-none select-none">
+          <span>كيف يتم تأمين وحماية بياناتنا وسجلاتنا المحاسبية؟</span>
+          <span class="w-8 h-8 rounded-full bg-white text-sap-blue flex items-center justify-center font-bold text-lg group-open:rotate-45 transition-transform shrink-0 border border-sap-border">
+            +
+          </span>
+        </summary>
+        <p class="mt-4 text-sap-muted text-sm sm:text-base leading-relaxed pt-3 border-t border-gray-200">
+          تعتمد المنظومة بروتوكول التشفير المصرفي AES-256 لنقل وتخزين البيانات، مع سجل تدقيق تفصيلي (Audit Log) يرصد كل حركة ومستخدم. بالإضافة إلى النسخ الاحتياطي التلقائي المشفر كل ساعة والموزع عبر مراكز بيانات متعددة جغرافياً لضمان عدم فقدان أي معاملة.
+        </p>
       </details>
-      <details class="group bg-sap-gray p-5 rounded-lg border border-gray-200">
-        <summary class="flex justify-between cursor-pointer font-bold text-sap-text list-none">هل يمكن استيراد البيانات من Excel؟<span class="text-sap-blue text-xl group-open:rotate-45 transition">+</span></summary>
-        <p class="mt-3 text-sap-muted text-sm">نعم، عبر قوالب Excel جاهزة مع دعم مجاني للترحيل.</p>
+
+      <!-- FAQ 4 -->
+      <details class="group bg-sap-gray p-6 rounded-lg border border-sap-border transition-all duration-200 hover:border-sap-blue">
+        <summary class="flex items-center justify-between cursor-pointer font-bold text-sap-dark text-base sm:text-lg list-none select-none">
+          <span>هل يمكن استيراد بياناتنا السابقة من ملفات Excel أو أنظمة سابقة؟</span>
+          <span class="w-8 h-8 rounded-full bg-white text-sap-blue flex items-center justify-center font-bold text-lg group-open:rotate-45 transition-transform shrink-0 border border-sap-border">
+            +
+          </span>
+        </summary>
+        <p class="mt-4 text-sap-muted text-sm sm:text-base leading-relaxed pt-3 border-t border-gray-200">
+          بالتأكيد؛ نوفر لك قوالب Excel ذكية لاستيراد دليل الحسابات، قائمة العملاء والموردين، دليل الأصناف والمخزون بأسعارها وأرصدتها الافتتاحية. كما يتولى فريق الدعم الفني لدينا مساعدتك مجاناً في ترحيل وتدقيق البيانات لتبدأ عملك فوراً.
+        </p>
       </details>
-      <details class="group bg-sap-gray p-5 rounded-lg border border-gray-200">
-        <summary class="flex justify-between cursor-pointer font-bold text-sap-text list-none">هل يحتاج النظام لخوادم خاصة؟<span class="text-sap-blue text-xl group-open:rotate-45 transition">+</span></summary>
-        <p class="mt-3 text-sap-muted text-sm">لا، نظام سحابي بالكامل يعمل من أي متصفح.</p>
+
+      <!-- FAQ 5 -->
+      <details class="group bg-sap-gray p-6 rounded-lg border border-sap-border transition-all duration-200 hover:border-sap-blue">
+        <summary class="flex items-center justify-between cursor-pointer font-bold text-sap-dark text-base sm:text-lg list-none select-none">
+          <span>هل يحتاج النظام إلى سيرفرات خاصة أو أجهزة كمبيوتر بمواصفات معينة؟</span>
+          <span class="w-8 h-8 rounded-full bg-white text-sap-blue flex items-center justify-center font-bold text-lg group-open:rotate-45 transition-transform shrink-0 border border-sap-border">
+            +
+          </span>
+        </summary>
+        <p class="mt-4 text-sap-muted text-sm sm:text-base leading-relaxed pt-3 border-t border-gray-200">
+          لا على الإطلاق. بما أن MeDo ERP نظام سحابي حقيقي بنسبة 100%، يمكنك تشغيله مباشرة عبر أي متصفح ويب على الحواسيب العادية، أجهزة التابلت، اللمس، أو الهواتف الذكية دون تكبد أي مصاريف لشراء خوادم باهظة أو توظيف مديري شبكات.
+        </p>
       </details>
-      <details class="group bg-sap-gray p-5 rounded-lg border border-gray-200">
-        <summary class="flex justify-between cursor-pointer font-bold text-sap-text list-none">ما وسائل الدفع المتاحة؟<span class="text-sap-blue text-xl group-open:rotate-45 transition">+</span></summary>
-        <p class="mt-3 text-sap-muted text-sm">بنك الكريمي، جوالي، كاش، ون كاش، فلوسك، أو التحويل البنكي.</p>
+
+      <!-- FAQ 6 -->
+      <details class="group bg-sap-gray p-6 rounded-lg border border-sap-border transition-all duration-200 hover:border-sap-blue">
+        <summary class="flex items-center justify-between cursor-pointer font-bold text-sap-dark text-base sm:text-lg list-none select-none">
+          <span>ما هي وسائل وطرق السداد والاشتراك المتاحة؟</span>
+          <span class="w-8 h-8 rounded-full bg-white text-sap-blue flex items-center justify-center font-bold text-lg group-open:rotate-45 transition-transform shrink-0 border border-sap-border">
+            +
+          </span>
+        </summary>
+        <p class="mt-4 text-sap-muted text-sm sm:text-base leading-relaxed pt-3 border-t border-gray-200">
+          نوفر أسهل خيارات السداد المحلية: بنك الكريمي (حساب أو إيداع)، تطبيق جوالي، محفظة كاش، ون كاش، فلوسك، أو التحويل البنكي المباشر. كما نقدم تسهيل السداد على 4 أقساط ميسرة لباقة Starter السنوية.
+        </p>
       </details>
+
     </div>
+
   </div>
 </section>
